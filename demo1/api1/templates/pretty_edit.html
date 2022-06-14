@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="container">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">编辑靓号</h3>
+          </div>
+          <div class="panel-body">
+              <form method="post" novalidate>    {# 在表单里只有写了请求方法是post，提交时才会以post方式 method="post"#}
+                  {% csrf_token %}
+                    {% for filed in form %}
+                    <div class="form-group">
+                      <label>{{ filed.label }}</label>
+                      {{ filed }}
+                      <span style="color: red">{{ filed.errors.0 }}</span>
+                    </div>
+                    {% endfor %}
+                  <button type="submit" class="btn btn-primary">保存</button>
+              </form>
+          </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">新建用户</h3>
+          </div>
+          <div class="panel-body">
+              <form method="post" novalidate>    {# 在表单里只有写了请求方法是post，提交时才会以post方式 method="post"#}
+                  {% csrf_token %}
+                    {% for filed in form %}
+                    <div class="form-group">
+                      <label>{{ filed.label }}</label>
+                      {{ filed }}
+                      <span style="color: red">{{ filed.errors.0 }}</span>
+                    </div>
+                    {% endfor %}
+                  <button type="submit" class="btn btn-primary">保存</button>
+              </form>
+          </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'plugins/bootstrap-datepicker/js/bootstrap-datepicker.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js' %}"></script>
+    <script>
+        $(function () {
+            $('#id_create_time').datepicker({
+                format: 'yyyy-mm-dd',
+                startDate: '0',
+                language: "zh-CN",
+                autoclose: true
+            });
+
+        })
+    </script>
+{% endblock %}

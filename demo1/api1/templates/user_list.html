@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="container">
+        {# 按钮 #}
+        <div style="margin-bottom: 10px">
+            <a class="btn btn-success" href="/user/add/">
+                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                新建用户
+            </a>
+        </div>
+        {# 表单 #}
+        <div class="panel panel-default">
+          <div class="panel-heading">
+              <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+              员工列表
+          </div>
+
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>姓名</th>
+                <th>密码</th>
+                <th>年龄</th>
+                <th>余额</th>
+                <th>入职时间</th>
+                <th>性别</th>
+                <th>部门</th>
+              </tr>
+            </thead>
+            <tbody>
+            {# 循环传入的员工表信息参数 #}
+            {% for foo in userinfo %}
+                <tr>
+                    <th scope="row">{{ foo.id }}</th>
+                    <td>{{ foo.name }}</td>
+                    <td>{{ foo.password }}</td>
+                    <td>{{ foo.age }}</td>
+                    <td>{{ foo.account }}</td>
+                    <td>{{ foo.create_time|date:'Y-m-d' }}</td>
+                    <td>{{ foo.get_gender_display }}</td>
+                    <td>{{ foo.depart.title }}</td>
+                    <td>
+                        <a class="btn btn-primary btn-xs" href="/user/{{ foo.id }}/edit/">编辑</a>
+                        <a class="btn btn-danger btn-xs" href="/user/{{ foo.id }}/delete/">删除</a>
+                    </td>
+                  </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <ul class="pagination">
+            {{ page_string }}
+        </ul>
+    </div>
+{% endblock %}
